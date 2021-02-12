@@ -1,0 +1,14 @@
+{
+  "name": "tensorflow-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "NODE_ENV=development parcel index.html --open",
+    "build": "NODE_ENV=production parcel build index.html --no-minify --public-url ./"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

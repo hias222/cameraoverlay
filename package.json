@@ -1,0 +1,24 @@
+{
+  "name": "cameraoverlay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tensor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node tensor.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hias222/cameraoverlay.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hias222/cameraoverlay/issues"
+  },
+  "homepage": "https://github.com/hias222/cameraoverlay#readme",
+  "dependencies": {
+    "@tensorflow/tfjs": "^3.0.0",
+    "@tensorflow/tfjs-node": "^3.0.0"
+  }
+}
