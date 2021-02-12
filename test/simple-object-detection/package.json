@@ -12,6 +12,7 @@
     "@tensorflow/tfjs": "^2.6.0",
     "argparse": "^1.0.10",
     "canvas": "2.6.1",
+    "core-js": "^3.6.5",
     "node-fetch": "2.6.1"
   },
   "scripts": {
