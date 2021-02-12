@@ -45,6 +45,11 @@ yarn train \
     --fineTuningEpochs 200
 ```
 
+npm run train \
+    --numExamples 200 \
+    --initialTransferEpochs 10 \
+    --fineTuningEpochs 20
+
 See `train.js` for other adjustable parameters.
 
 ### Using CUDA GPU for Training
