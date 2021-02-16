@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Hello World - TensorFlow.js</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.e308ff8e.css">
+<script src="/style.e308ff8e.js"></script></head>
+
+<body>
+    <h1>TensorFlow.js Hello World</h1>
+
+    <p id="status">Awaiting TF.js load</p>
+
+    <section id="demos" class="invisible">
+
+        <p>Hold some objects up close to your webcam to get a real-time classification! When ready click "enable webcam"
+            below and accept access to the webcam when the browser asks (check the top left of your window)</p>
+
+        <div id="liveView" class="camView">
+            <button id="webcamButton">Enable Webcam</button>
+            <video id="webcam" autoplay="" width="640" height="480"></video>
+        </div>
+    </section>
+
+   
+    <!-- Load TensorFlow.js. This is required to use coco-ssd model. -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"> </script>
+    <!-- Load the coco-ssd model. -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"> </script>
+
+
+    <script src="/tensorflow-1.e31bb0bc.js" defer=""></script>
+</body>
+
+</html>
