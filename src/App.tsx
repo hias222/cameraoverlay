@@ -3,13 +3,17 @@ import './styles/App.scss';
 import { WsSocketState } from './services/WsSocketState';
 import { FrontendState } from './state/FrontendState';
 
-import { BaseFrontendStaticComponent } from './components/BaseFrontendStaticComponent';
 import { eventHeat } from './types/EventHeat';
+import { Box } from "@material-ui/core";
+
+import classnames from 'classnames';
+import { HeatNumbersComponent } from './components/HeatNumbersComponent';
+import { LaneData } from './interfaces/lanedatainterface';
 
 
 export default class Lcd extends React.Component<{}, FrontendState> {
 
-    mylane: string[];
+    mylane: LaneData[];
     correctValueForLaneNull: number;
     evenHeat: eventHeat;
 
@@ -140,21 +144,25 @@ export default class Lcd extends React.Component<{}, FrontendState> {
 
     render() {
 
+        let inner = classnames('inner');
+
         return (
-            <div>
-                <WsSocketState onStartStop={this.onStartStop}
-                    onEventHeatChange={this.onEventHeatChange}
-                    onLaneChange={this.onLaneChange}
-                    onDisplayModeChange={this.onDisplayModeChange}
-                    onRunningTimeChange={this.onRunningTimeChange}
-                    onMessageChange={this.onMessageChange} />
-                <BaseFrontendStaticComponent
-                    startdelayms={this.state.startdelayms}
-                    EventHeat={this.state.eventHeat}
-                    lanes={this.state.lanes}
-                    displayMode={this.state.displayMode}
-                    runningTime={this.state.runningTime}
-                />
+            <div  >
+                <Box className={inner} height={500}>
+                    <WsSocketState onStartStop={this.onStartStop}
+                        onEventHeatChange={this.onEventHeatChange}
+                        onLaneChange={this.onLaneChange}
+                        onDisplayModeChange={this.onDisplayModeChange}
+                        onRunningTimeChange={this.onRunningTimeChange}
+                        onMessageChange={this.onMessageChange} />
+                    <HeatNumbersComponent
+                        startdelayms={this.state.startdelayms}
+                        EventHeat={this.state.eventHeat}
+                        lanes={this.state.lanes}
+                        displayMode={this.state.displayMode}
+                        runningTime={this.state.runningTime}
+                    />
+                </Box>
             </div>
         );
     }

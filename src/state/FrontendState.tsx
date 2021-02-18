@@ -1,10 +1,11 @@
+import { LaneData } from "../interfaces/lanedatainterface";
 import { eventHeat } from "../types/EventHeat";
 
 export type FrontendState = {
   startdelayms: number;
   racerunning: boolean;
   eventHeat: eventHeat;
-  lanes: string[];
+  lanes: LaneData[];
   runningTime: string;
   displayMode: string;
   MessageText: string;

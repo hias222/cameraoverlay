@@ -1,8 +1,7 @@
 import React from "react";
 import { BaseFrontendInterface } from "../interfaces/BaseFrontendInterface";
-import classnames from 'classnames';
 import { SingleLaneStaticComponent } from "./SingleLaneStaticComponent";
-import { Grid, Box } from "@material-ui/core";
+import { Grid} from "@material-ui/core";
 
 export class BaseFrontendStaticComponent extends React.Component<BaseFrontendInterface, {}> {
 
@@ -15,12 +14,7 @@ export class BaseFrontendStaticComponent extends React.Component<BaseFrontendInt
     }
 
     render() {
-
-        let staticlaneeven = classnames('staticlaneeven');
-        let staticbox = classnames('staticbox');
         return (
-            <div>
-
                 <Grid container >
                     {
                         this.props.lanes.map((lane, index) => (
@@ -32,21 +26,7 @@ export class BaseFrontendStaticComponent extends React.Component<BaseFrontendInt
                             />
                         ))
                     }
-                    <Grid item xs={12}>
-            
-                            <Box
-                                borderTop={1} borderLeft={0} borderBottom={0} className={staticbox}>
-                                    <Grid className={staticlaneeven}> 
-                                    {this.props.EventHeat.competition}
-                                    </Grid>
-                
-                            </Box>
-                   
-                    </Grid>
                 </Grid>
-
-
-            </div >
         )
     }
 }
