@@ -1,4 +1,7 @@
+import { swimmerData } from "../types/SwimmerData";
+
 export interface typelaneShow {
     lane: number;
-    swimmer: string;
+    lanename: string;
+    swimmer: swimmerData;
 }

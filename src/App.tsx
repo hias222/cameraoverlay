@@ -8,15 +8,12 @@ import { Box } from "@material-ui/core";
 
 import classnames from 'classnames';
 import { HeatNumbersComponent } from './components/HeatNumbersComponent';
-import { LaneData } from './interfaces/lanedatainterface';
-
 
 export default class Lcd extends React.Component<{}, FrontendState> {
 
-    mylane: LaneData[];
+    mylane: any[];
     correctValueForLaneNull: number;
     evenHeat: eventHeat;
-
 
     constructor(props: {}) {
         super(props);

@@ -11,10 +11,8 @@ export default class HeatNumbers extends React.Component<HeatDisplayInterface, {
 
         var startpoint = (lane - 1) * this.col_height
         var svg_d = "M 0 " + startpoint + " h 60 l -30,35 h -30 z"
-        console.log(svg_d + " - " + this.props.lanes.length)
         return <path
             transform="scale(1)"
-            //d="M 0 3 h 60 l -30,35 h -30  z"
             d={svg_d}
             fill="url(#laneGradientStyle)"
         />
@@ -33,10 +31,10 @@ export default class HeatNumbers extends React.Component<HeatDisplayInterface, {
         return box;
     }
 
-    getText(lane: number) {
+    getText(lane: number, name: string) {
         let textlanesvg = classnames('textlanesvg');
 
-        var startpoint = (lane ) * this.col_height - 12 
+        var startpoint = (lane) * this.col_height - 12
 
         return <text
             className={textlanesvg}
@@ -44,14 +42,21 @@ export default class HeatNumbers extends React.Component<HeatDisplayInterface, {
             x="3"
             fontSize="27"
         >
-            {lane}</text>
+            {lane} {name}</text>
     }
 
     getAllText() {
         var box = <g>
             {
                 this.props.lanes.map((lane, index) => {
-                    return this.getText(lane.lane)
+                    if (lane.swimmer !== undefined) {
+                        var name = lane.swimmer.name !== undefined ? lane.swimmer.name :''
+                    } else {
+                        // eslint-disable-next-line 
+                        var name = '-'
+                    }
+
+                    return this.getText(lane.lane, name)
                 })
             }
         </g>;
