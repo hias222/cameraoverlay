@@ -6,11 +6,12 @@ import { HeatDisplayInterface } from '../../interfaces/HeatDisplayInterface';
 export default class HeatNumbers extends React.Component<HeatDisplayInterface, {}> {
 
     col_height: number = 40;
+    image_width: number = 500;
 
     getBox(lane: number) {
 
         var startpoint = (lane - 1) * this.col_height
-        var svg_d = "M 0 " + startpoint + " h 60 l -30,35 h -30 z"
+        var svg_d = "M 0 " + startpoint + " h 460 l -30,35 h -430 z"
         return <path
             transform="scale(1)"
             d={svg_d}
@@ -50,7 +51,9 @@ export default class HeatNumbers extends React.Component<HeatDisplayInterface, {
             {
                 this.props.lanes.map((lane, index) => {
                     if (lane.swimmer !== undefined) {
-                        var name = lane.swimmer.name !== undefined ? lane.swimmer.name :''
+                        var lastname = lane.swimmer.name !== undefined ? lane.swimmer.name :''
+                        var firstname = lane.swimmer.firstName !== undefined ? lane.swimmer.firstName :''
+                        var name = lastname + " " + firstname
                     } else {
                         // eslint-disable-next-line 
                         var name = '-'
@@ -68,7 +71,7 @@ export default class HeatNumbers extends React.Component<HeatDisplayInterface, {
 
         let gradient_lane = classnames('gradient_lane');
         let height = this.col_height * this.props.lanes.length;
-        let viewBox = "0 0 60 " + height;
+        let viewBox = "0 0 " + this.image_width + " " + height;
 
         return (<svg
             xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"
@@ -76,7 +79,7 @@ export default class HeatNumbers extends React.Component<HeatDisplayInterface, {
             version="1.1"
             viewBox={viewBox}
             height={height}
-            width="60">
+            width={this.image_width}>
             <defs>
                 <linearGradient id="HeatNumbersGradient" gradientTransform="rotate(0)">
                     <stop
@@ -93,7 +96,7 @@ export default class HeatNumbers extends React.Component<HeatDisplayInterface, {
                 <linearGradient
                     gradientUnits="userSpaceOnUse"
                     y2="0"
-                    x2="65"
+                    x2="465"
                     y1="0"
                     x1="0"
                     id="laneGradientStyle"

@@ -1,9 +1,9 @@
 import React from "react";
 import { BaseFrontendInterface } from "../interfaces/BaseFrontendInterface";
-import { Grid } from "@material-ui/core";
 import HeatNumbers from "./images/HeatNumbers";
 import { HeatDisplayState } from "../state/HeatDisplayState";
 import { typelaneShow } from "../state/typelaneShow";
+import classnames from "classnames";
 
 export class HeatNumbersComponent extends React.Component<BaseFrontendInterface, HeatDisplayState> {
 
@@ -19,10 +19,19 @@ export class HeatNumbersComponent extends React.Component<BaseFrontendInterface,
         };
 
         this.addLaneData = this.addLaneData.bind(this)
+        this.checkUpdate = this.checkUpdate.bind(this)
+
+    }
+
+    componentDidMount() {
+        this.checkUpdate()
     }
 
     componentDidUpdate(prevProps: BaseFrontendInterface) {
+        this.checkUpdate()
+    }
 
+    checkUpdate() {
         this.props.lanes.map((lane, index) => {
             var size = this.myLanes.length;
             var newLane = {
@@ -61,14 +70,11 @@ export class HeatNumbersComponent extends React.Component<BaseFrontendInterface,
                 lane: lanenumber, lanename: lane.lane, swimmer:
                 {
                     name: lane.lastname,
-                    clubid: 'ssssd',
-                    clubname: 'sdfas'
+                    clubid: lane.clubid,
+                    clubname: lane.clubname
                 }
             }
             if (this.myLanes[index].lane !== newLane.lane) {
-                //console.log('update lane ' + lanenumber )
-                //console.log(newLane )
-
                 this.myLanes[index] = newLane
                 changed = true
             } else {
@@ -86,12 +92,14 @@ export class HeatNumbersComponent extends React.Component<BaseFrontendInterface,
     }
 
     render() {
+
+        let inner = classnames('inner');
         return (
-            <Grid container >
+            <div className={inner}    >       
                 <HeatNumbers
                     lanes={this.state.lanes}
                 />
-            </Grid>
+                </div>
         )
     }
 }

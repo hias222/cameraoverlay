@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import Test from './Test';
+
 import * as serviceWorker from './serviceWorker';
 
 import { Route, BrowserRouter } from 'react-router-dom';
@@ -9,6 +11,7 @@ import { Route, BrowserRouter } from 'react-router-dom';
 const routing = (
     <BrowserRouter basename="/overlay">
         <Route path="/" exact component={App} />
+        <Route path="/test" exact component={Test} />
     </BrowserRouter>
 )
 

@@ -4,10 +4,8 @@ import { WsSocketState } from './services/WsSocketState';
 import { FrontendState } from './state/FrontendState';
 
 import { eventHeat } from './types/EventHeat';
-import { Box } from "@material-ui/core";
-
-import classnames from 'classnames';
 import { HeatNumbersComponent } from './components/HeatNumbersComponent';
+import { Box } from '@material-ui/core';
 
 export default class Lcd extends React.Component<{}, FrontendState> {
 
@@ -141,11 +139,10 @@ export default class Lcd extends React.Component<{}, FrontendState> {
 
     render() {
 
-        let inner = classnames('inner');
 
         return (
             <div  >
-                <Box className={inner} height={500}>
+                <Box width={500} height={323}>
                     <WsSocketState onStartStop={this.onStartStop}
                         onEventHeatChange={this.onEventHeatChange}
                         onLaneChange={this.onLaneChange}
@@ -159,6 +156,7 @@ export default class Lcd extends React.Component<{}, FrontendState> {
                         displayMode={this.state.displayMode}
                         runningTime={this.state.runningTime}
                     />
+                
                 </Box>
             </div>
         );
