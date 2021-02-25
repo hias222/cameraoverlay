@@ -7,4 +7,5 @@ export interface BaseFrontendInterface {
     lanes: any[];
     displayMode: string;
     runningTime: string;
+    orientation: string;
 }

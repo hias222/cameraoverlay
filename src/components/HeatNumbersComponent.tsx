@@ -1,9 +1,10 @@
 import React from "react";
 import { BaseFrontendInterface } from "../interfaces/BaseFrontendInterface";
-import HeatNumbers from "./images/HeatNumbers";
+
 import { HeatDisplayState } from "../state/HeatDisplayState";
 import { typelaneShow } from "../state/typelaneShow";
 import classnames from "classnames";
+import HeatNumbersLeft from "./images/HeatNumbersLeft";
 
 export class HeatNumbersComponent extends React.Component<BaseFrontendInterface, HeatDisplayState> {
 
@@ -25,6 +26,7 @@ export class HeatNumbersComponent extends React.Component<BaseFrontendInterface,
 
     componentDidMount() {
         this.checkUpdate()
+        console.log("orientation " + this.props.orientation)
     }
 
     componentDidUpdate(prevProps: BaseFrontendInterface) {
@@ -35,11 +37,12 @@ export class HeatNumbersComponent extends React.Component<BaseFrontendInterface,
         this.props.lanes.map((lane, index) => {
             var size = this.myLanes.length;
             var newLane = {
-                lane: 1, lanename: lane.lane, swimmer:
+                lane: 0, lanename: lane.lane, swimmer:
                 {
                     name: lane.lastname,
-                    clubid: 'ssssd',
-                    clubname: 'sdfas'
+                    firstName: lane.firstname,
+                    clubid: lane.code,
+                    clubname: lane.name
                 }
             }
             if (index > size - 1) {
@@ -70,8 +73,9 @@ export class HeatNumbersComponent extends React.Component<BaseFrontendInterface,
                 lane: lanenumber, lanename: lane.lane, swimmer:
                 {
                     name: lane.lastname,
-                    clubid: lane.clubid,
-                    clubname: lane.clubname
+                    firstName: lane.firstname,
+                    clubid: lane.code,
+                    clubname: lane.name
                 }
             }
             if (this.myLanes[index].lane !== newLane.lane) {
@@ -96,7 +100,7 @@ export class HeatNumbersComponent extends React.Component<BaseFrontendInterface,
         let inner = classnames('inner');
         return (
             <div className={inner}    >       
-                <HeatNumbers
+                <HeatNumbersLeft
                     lanes={this.state.lanes}
                 />
                 </div>

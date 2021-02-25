@@ -6,12 +6,15 @@ import Test from './Test';
 import * as serviceWorker from './serviceWorker';
 
 import { Route, BrowserRouter } from 'react-router-dom';
+import Start from './pages/Start';
 
 
 const routing = (
     <BrowserRouter basename="/overlay">
-        <Route path="/" exact component={App} />
+        <Route path="/" exact component={Start} />
         <Route path="/test" exact component={Test} />
+        <Route path="/pool/:orientation" exact component={App} />
+
     </BrowserRouter>
 )
 

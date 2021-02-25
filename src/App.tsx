@@ -7,13 +7,24 @@ import { eventHeat } from './types/EventHeat';
 import { HeatNumbersComponent } from './components/HeatNumbersComponent';
 import { Box } from '@material-ui/core';
 
-export default class Lcd extends React.Component<{}, FrontendState> {
+import {RouteComponentProps} from "react-router";
+
+type PathParamsType = {
+    orientation: string,
+}
+
+// Your component own properties
+type PropsType = RouteComponentProps<PathParamsType> & {
+    someString: string,
+}
+export default class Lcd extends React.Component<PropsType, FrontendState> {
 
     mylane: any[];
     correctValueForLaneNull: number;
     evenHeat: eventHeat;
+    orientation: string;
 
-    constructor(props: {}) {
+    constructor(props: PropsType) {
         super(props);
         this.onStartStop = this.onStartStop.bind(this);
         this.onEventHeatChange = this.onEventHeatChange.bind(this);
@@ -21,6 +32,8 @@ export default class Lcd extends React.Component<{}, FrontendState> {
         this.onDisplayModeChange = this.onDisplayModeChange.bind(this);
         this.onMessageChange = this.onMessageChange.bind(this);
         this.onRunningTimeChange = this.onRunningTimeChange.bind(this);
+
+        this.orientation =  this.props.match.params.orientation;
 
         this.evenHeat = {
             name: "new",
@@ -37,7 +50,8 @@ export default class Lcd extends React.Component<{}, FrontendState> {
             displayMode: "race",
             MessageText: "",
             MessageTime: Date.now().toString(),
-            VideoVersion: ""
+            VideoVersion: "",
+            orientation:""
         };
         this.mylane = [];
         this.correctValueForLaneNull = 0;
@@ -136,13 +150,17 @@ export default class Lcd extends React.Component<{}, FrontendState> {
 
     }
 
+    componentDidMount(){
+        this.setState({
+            orientation: this.orientation
+        })   
+    }
 
     render() {
 
-
         return (
             <div  >
-                <Box width={500} height={323}>
+                <Box width={1280} height={720}>
                     <WsSocketState onStartStop={this.onStartStop}
                         onEventHeatChange={this.onEventHeatChange}
                         onLaneChange={this.onLaneChange}
@@ -155,6 +173,7 @@ export default class Lcd extends React.Component<{}, FrontendState> {
                         lanes={this.state.lanes}
                         displayMode={this.state.displayMode}
                         runningTime={this.state.runningTime}
+                        orientation={this.state.orientation}
                     />
                 
                 </Box>

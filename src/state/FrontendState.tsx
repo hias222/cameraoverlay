@@ -11,5 +11,6 @@ export type FrontendState = {
   MessageText: string;
   MessageTime: string;
   VideoVersion: string;
+  orientation: string;
 };
 
