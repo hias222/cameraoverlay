@@ -1,23 +1,23 @@
 
-  .inner {
-    transform-origin: 0px 0px 0px;
-
-  }
   
 .body{
-  margin:0px 0px 0px 0px;
-  padding:0px 0px 0px 0px;
-}
-
-  .base {
-       //http://ds-overdesign.com/transform/matrix3d.html
+         //http://ds-overdesign.com/transform/matrix3d.html
     //transform: perspective(100px) rotateX(30deg) rotateY(0deg);
     // https://www.useragentman.com/matrix/
 
     // transform: matrix3d(0.3333, -0.1460, 0, -0.0006, -2.1864, -0.5029,0, -0.0021, 0,0,1,0, 698,317,0,1); 
-
     //transform: matrix3d(0.601176, -0.111019, 0, -0.000737, -0.44639, -0.024435, 0, -0.000953, 0, 0, 1, 0, 231.314186, 189.212243, 0, 1);
+    
     transform-origin: 0px 0px 0px;
+  margin:0px 0px 0px 0px;
+  padding:0px 0px 0px 0px;
+  width: 680px;
+ // transform-origin: 0px 0px 0px;
+ // transform: matrix3d(0.3581, -0.0742, 0, -0.00035, -0.9540, -0.214,0, -0.00093, 0,0,1,0, 658,310,0,1); 
+}
+
+  .base {
+
     //width: 500px;
     margin:0px 0px 0px 0px;
     padding:0px 0px 0px 0px;

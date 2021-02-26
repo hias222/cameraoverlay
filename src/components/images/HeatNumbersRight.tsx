@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { HeatDisplayInterface } from '../../interfaces/HeatDisplayInterface';
 
 
-export default class HeatNumbersLeft extends React.Component<HeatDisplayInterface, {}> {
+export default class HeatNumbersRight extends React.Component<HeatDisplayInterface, {}> {
 
     col_height: number = 40;
     image_width: number = 300;
@@ -14,7 +14,7 @@ export default class HeatNumbersLeft extends React.Component<HeatDisplayInterfac
     getNumberBox(lane: number, index: string) {
 
         var startpoint = (lane - 1) * this.col_height
-        var svg_d = "M 0 " + startpoint + " h 35 l 0,35 h -35 z"
+        var svg_d = "M " + this.image_width + " " + startpoint + " h -35 l 0,35 h 35 z"
         return <path key={index}
             transform="scale(1)"
             d={svg_d}
@@ -25,7 +25,7 @@ export default class HeatNumbersLeft extends React.Component<HeatDisplayInterfac
     getNameBox(lane: number, index: string) {
 
         var startpoint = (lane - 1) * this.col_height
-        var svg_d = "M 40 " + startpoint + " h 300 l 0,35 h -300 z"
+        var svg_d = "M " + (this.image_width - 40) + " " + startpoint + " h -300 l 0,35 h 300 z"
         return <path key={index}
             transform="scale(1)"
             d={svg_d}
@@ -65,13 +65,15 @@ export default class HeatNumbersLeft extends React.Component<HeatDisplayInterfac
 
         return <g key={'gt' + index}>
             <text key={'t0'+index} className={textlanesvg}
-                y={startpoint} x="9"
+                y={startpoint} x={this.image_width -9}
                 fontSize="27"
+                text-anchor="end"
             >
                 {lane}</text>
             <text key={'t1'+index}  className={textlanesvg}
-                y={startpoint}  x="50"
+                y={startpoint}  x={this.image_width - 48}
                 fontSize="27"
+                text-anchor="end"
             >
                 {name}</text>
         </g>
@@ -125,9 +127,9 @@ export default class HeatNumbersLeft extends React.Component<HeatDisplayInterfac
                 <linearGradient
                     gradientUnits="userSpaceOnUse"
                     y2="0"
-                    x2="465"
+                    x2="0"
                     y1="0"
-                    x1="0"
+                    x1="350"
                     id="laneGradientStyle"
                     xlinkHref="#HeatNumbersGradient"
                 />
@@ -147,9 +149,9 @@ export default class HeatNumbersLeft extends React.Component<HeatDisplayInterfac
                 <linearGradient
                     gradientUnits="userSpaceOnUse"
                     y2="0"
-                    x2="300"
+                    x2="0"
                     y1="0"
-                    x1="0"
+                    x1="350"
                     id="nameGradientStyle"
                     xlinkHref="#HeatNumaeGradient"
                 />

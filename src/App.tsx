@@ -5,9 +5,9 @@ import { FrontendState } from './state/FrontendState';
 
 import { eventHeat } from './types/EventHeat';
 import { HeatNumbersComponent } from './components/HeatNumbersComponent';
-import { Box } from '@material-ui/core';
 
 import {RouteComponentProps} from "react-router";
+import classnames from 'classnames';
 
 type PathParamsType = {
     orientation: string,
@@ -158,9 +158,10 @@ export default class Lcd extends React.Component<PropsType, FrontendState> {
 
     render() {
 
+        let base = classnames('base');
+
         return (
-            <div  >
-                <Box width={1280} height={720}>
+            <div className={base} >
                     <WsSocketState onStartStop={this.onStartStop}
                         onEventHeatChange={this.onEventHeatChange}
                         onLaneChange={this.onLaneChange}
@@ -175,8 +176,6 @@ export default class Lcd extends React.Component<PropsType, FrontendState> {
                         runningTime={this.state.runningTime}
                         orientation={this.state.orientation}
                     />
-                
-                </Box>
             </div>
         );
     }

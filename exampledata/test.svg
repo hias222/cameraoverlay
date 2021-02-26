@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet"
+	id="svg8" version="1.1" viewBox="0 0 300 320" height="720" width="680">
+	<defs>
+		<linearGradient id="HeatNumbersGradient" gradientTransform="rotate(0)">
+			<stop class="gradient_lane" offset="0" stop-opacity="1"></stop>
+			<stop class="gradient_lane" offset="1" stop-opacity="0"></stop>
+		</linearGradient>
+		<linearGradient gradientUnits="userSpaceOnUse" y2="0" x2="465" y1="0" x1="0" id="laneGradientStyle"
+			xlink:href="#HeatNumbersGradient"></linearGradient>
+		<linearGradient id="HeatNumaeGradient" gradientTransform="rotate(0)">
+			<stop class="gradient_name" offset="0" stop-opacity="1"></stop>
+			<stop class="gradient_name" offset="1" stop-opacity="0"></stop>
+		</linearGradient>
+		<linearGradient gradientUnits="userSpaceOnUse" y2="0" x2="300" y1="0" x1="0" id="nameGradientStyle"
+			xlink:href="#HeatNumaeGradient"></linearGradient>
+	</defs>
+	<g id="layerbox1">
+		<path transform="scale(1)" d="M 0 0 h 35 l 0,35 h -35 z" fill="url(#laneGradientStyle)"></path>
+		<path transform="scale(1)" d="M 0 40 h 35 l 0,35 h -35 z" fill="url(#laneGradientStyle)"></path>
+		<path transform="scale(1)" d="M 0 80 h 35 l 0,35 h -35 z" fill="url(#laneGradientStyle)"></path>
+		<path transform="scale(1)" d="M 0 120 h 35 l 0,35 h -35 z" fill="url(#laneGradientStyle)"></path>
+		<path transform="scale(1)" d="M 0 160 h 35 l 0,35 h -35 z" fill="url(#laneGradientStyle)"></path>
+		<path transform="scale(1)" d="M 0 200 h 35 l 0,35 h -35 z" fill="url(#laneGradientStyle)"></path>
+		<path transform="scale(1)" d="M 0 240 h 35 l 0,35 h -35 z" fill="url(#laneGradientStyle)"></path>
+		<path transform="scale(1)" d="M 0 280 h 35 l 0,35 h -35 z" fill="url(#laneGradientStyle)"></path>
+	</g>
+	<g id="layernamebox1">
+		<path transform="scale(1)" d="M 40 0 h 300 l 0,35 h -300 z" fill="url(#nameGradientStyle)"></path>
+		<path transform="scale(1)" d="M 40 40 h 300 l 0,35 h -300 z" fill="url(#nameGradientStyle)"></path>
+		<path transform="scale(1)" d="M 40 80 h 300 l 0,35 h -300 z" fill="url(#nameGradientStyle)"></path>
+		<path transform="scale(1)" d="M 40 120 h 300 l 0,35 h -300 z" fill="url(#nameGradientStyle)"></path>
+		<path transform="scale(1)" d="M 40 160 h 300 l 0,35 h -300 z" fill="url(#nameGradientStyle)"></path>
+		<path transform="scale(1)" d="M 40 200 h 300 l 0,35 h -300 z" fill="url(#nameGradientStyle)"></path>
+		<path transform="scale(1)" d="M 40 240 h 300 l 0,35 h -300 z" fill="url(#nameGradientStyle)"></path>
+		<path transform="scale(1)" d="M 40 280 h 300 l 0,35 h -300 z" fill="url(#nameGradientStyle)"></path>
+	</g>
+	<g id="layertext1">
+		<g><text class="textlanesvg" y="26" x="9" font-size="27">1</text><text class="textlanesvg" y="26" x="50"
+				font-size="27">Antonia Struckmeier</text></g>
+		<g><text class="textlanesvg" y="66" x="9" font-size="27">2</text><text class="textlanesvg" y="66" x="50"
+				font-size="27">Sophia Lamik</text></g>
+		<g><text class="textlanesvg" y="106" x="9" font-size="27">3</text><text class="textlanesvg" y="106" x="50"
+				font-size="27">Alina Zeder</text></g>
+		<g><text class="textlanesvg" y="146" x="9" font-size="27">4</text><text class="textlanesvg" y="146" x="50"
+				font-size="27">Julia Slonicz</text></g>
+		<g><text class="textlanesvg" y="186" x="9" font-size="27">5</text><text class="textlanesvg" y="186" x="50"
+				font-size="27">Louisa Heidenreich</text></g>
+		<g><text class="textlanesvg" y="226" x="9" font-size="27">6</text><text class="textlanesvg" y="226" x="50"
+				font-size="27">Elsa Schmaus</text></g>
+		<g><text class="textlanesvg" y="266" x="9" font-size="27">7</text><text class="textlanesvg" y="266" x="50"
+				font-size="27"> </text></g>
+		<g><text class="textlanesvg" y="306" x="9" font-size="27">8</text><text class="textlanesvg" y="306" x="50"
+				font-size="27"> </text></g>
+	</g>
+</svg>

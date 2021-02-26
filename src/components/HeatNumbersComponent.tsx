@@ -3,8 +3,8 @@ import { BaseFrontendInterface } from "../interfaces/BaseFrontendInterface";
 
 import { HeatDisplayState } from "../state/HeatDisplayState";
 import { typelaneShow } from "../state/typelaneShow";
-import classnames from "classnames";
 import HeatNumbersLeft from "./images/HeatNumbersLeft";
+import HeatNumbersRight from "./images/HeatNumbersRight";
 
 export class HeatNumbersComponent extends React.Component<BaseFrontendInterface, HeatDisplayState> {
 
@@ -95,15 +95,30 @@ export class HeatNumbersComponent extends React.Component<BaseFrontendInterface,
         })
     }
 
+    getPoolSite() {
+
+        if (this.props.orientation === 'left') {
+            return <HeatNumbersLeft
+                lanes={this.state.lanes}
+            />
+
+        }
+
+        if (this.props.orientation === 'right') {
+            return <HeatNumbersRight
+                lanes={this.state.lanes}
+            />
+
+        }
+
+        return <h2>Nothing</h2>
+
+    }
+
     render() {
 
-        let inner = classnames('inner');
         return (
-            <div className={inner}    >       
-                <HeatNumbersLeft
-                    lanes={this.state.lanes}
-                />
-                </div>
+            this.getPoolSite()
         )
     }
 }

@@ -5,6 +5,7 @@ import socketIOClient from "socket.io-client";
 import { WsSocketPropsState } from "../state/WsSocketPropsState";
 
 import getSwimStyles from '../utilities/getSwimStyles';
+import classnames from "classnames";
 
 export class WsSocketState extends React.Component<WsSocketPropsInterface, WsSocketPropsState>
 {
@@ -222,8 +223,10 @@ export class WsSocketState extends React.Component<WsSocketPropsInterface, WsSoc
       webcontent = "connection Error";
     }
 
+    let base = classnames('base');
+
     return (
-      <div>
+      <div className={base}>
         {webcontent}
       </div>
     );
