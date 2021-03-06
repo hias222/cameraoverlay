@@ -13,7 +13,7 @@ const routing = (
     <BrowserRouter basename="/overlay">
         <Route path="/" exact component={Start} />
         <Route path="/test" exact component={Test} />
-        <Route path="/pool/:orientation" exact component={App} />
+        <Route path="/:orientation" exact component={App} />
 
     </BrowserRouter>
 )

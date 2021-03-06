@@ -19,13 +19,13 @@ export default function Display() {
         <div className={classes.root}>
             <Container maxWidth="sm">
                 <Grid container>
-                    <Grid xs={6}>
-                        <Button variant="outlined" color="primary" href="pool/left">
+                    <Grid item xs={6}>
+                        <Button variant="outlined" color="primary" href="overlay/left">
                             Pool left
                     </Button>
                     </Grid>
-                    <Grid xs={6}>
-                        <Button variant="outlined" color="primary" href="pool/right">
+                    <Grid item xs={6}>
+                        <Button variant="outlined" color="primary" href="overlay/right">
                             Pool right
                     </Button>
                     </Grid>
