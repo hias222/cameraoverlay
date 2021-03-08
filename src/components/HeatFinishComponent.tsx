@@ -59,16 +59,19 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
                         lanes: this.myLanes
                     })
                 })
-                .catch((error) => console.log(error))
+                .catch((error) => console.log('debug: ' + error))
             return null
         })
     }
 
     checkIndexSize(newLane: typelaneFinish, index: number, size: number): Promise<any> {
-        console.log('checkIndexSize')
+        //console.log('checkIndexSize')
         return new Promise((resolve, reject) => {
             if (index > size - 1) {
                 this.myLanes.push(newLane)
+                this.setState({
+                    lanes: this.myLanes
+                })
                 return resolve('change')
             } else {
                 return resolve('nochange')
@@ -76,15 +79,17 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
         })
     }
 
-    checkFinishTime(lane: any): Promise<any> {
+    checkFinishTime(lane: typelaneFinish): Promise<any> {
         return new Promise((resolve, reject) => {
-            //console.log(lane.finishtime)
             if (lane.finishtime !== undefined && lane.place !== undefined) {
-                //console.log(lane)
-                if (lane.finishtime !== 'undefined') {
-                    console.log('finish ------------')
-                    console.log(lane)
-                    return resolve('success')
+                if (lane.finishtime !== 'undefined' && lane.place !== 'undefined') {
+                    if (lane.place !== '0') {
+                       // console.log('finish ------------')
+                       // console.log(lane)
+                        return resolve('success')
+                    } else {
+                        return reject('checkFinishTime')
+                    }
                 } else {
                     return reject('checkFinishTime')
                 }
@@ -96,25 +101,15 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
 
     addLaneData(newLane: typelaneFinish, index: number): Promise<any> {
         return new Promise((resolve, reject) => {
-            console.log('addlane')
-            //var lanenumber = parseInt(lane.lane)
-            if (this.myLanes[index].lane !== newLane.lane) {
+            // console.log('addlane ' + this.myLanes[index].finishtime + ' ' + newLane.finishtime)
+            if (this.myLanes[index].finishtime !== newLane.finishtime) {
+                console.log('update swimmer ' + newLane.lane)
                 this.myLanes[index] = newLane
                 return resolve('success')
             } else {
-                if (newLane.swimmer !== undefined) {
-                    //console.log(newLane.swimmer)
-                    if (this.myLanes[index].swimmer.name !== newLane.swimmer.name) {
-                        console.log('update swimmer ' + newLane.lane)
-                        this.myLanes[index] = newLane
-                        return resolve('success')
-                    } else {
-                        return reject('addLaneData')
-                    }
-                } else {
-                    return reject('addLaneData')
-                }
+                return reject('addLaneData')
             }
+
         })
     }
 
