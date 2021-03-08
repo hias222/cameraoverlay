@@ -160,7 +160,7 @@ export class WsSocketState extends React.Component<WsSocketPropsInterface, WsSoc
   }
 
   setLaneInfo(jsondata: any) {
-    //locklanes = true;
+      //locklanes = true;
     if (jsondata.place === '0') {
       var laptime = "{ \"laptime\": \"" + Date.now() + "\",\"lap\": \"true\" }"
       var newjsondata = { ...jsondata, ...JSON.parse(laptime) }
