@@ -12,8 +12,7 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
 
     constructor(props: BaseFrontendInterface) {
         super(props);
-        this.myLanes = [
-        ];
+        this.myLanes = [];
 
         this.state = {
             lanes: this.myLanes
@@ -30,6 +29,12 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
     }
 
     componentDidUpdate(prevProps: BaseFrontendInterface) {
+        if (this.props.EventHeat.heatnr !== prevProps.EventHeat.heatnr || this.props.EventHeat.eventnr !== prevProps.EventHeat.eventnr ){
+            console.log('clear finish')
+            this.setState({
+                lanes: []
+            })
+        }
         this.checkUpdate()
     }
 
@@ -49,12 +54,13 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
                     clubname: lane.name
                 }
             }
-            this.checkIndexSize(newLane, index, size)
+            this.checkIndexSize(index, size)
                 .then(() =>
                     this.checkFinishTime(lane))
                 .then(() =>
                     this.addLaneData(newLane, index))
                 .then(() => {
+                    console.log('update finish ' + lane.lane)
                     this.setState({
                         lanes: this.myLanes
                     })
@@ -64,11 +70,26 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
         })
     }
 
-    checkIndexSize(newLane: typelaneFinish, index: number, size: number): Promise<any> {
+    checkIndexSize( index: number, size: number): Promise<any> {
         //console.log('checkIndexSize')
+        var emptyLane: typelaneFinish = {
+            lane: index, lanename: index+1 + '',
+            place: "undefined",
+            finishtime: "undefined",
+            swimmer:
+            {
+                name: "",
+                firstName: "",
+                clubid: "",
+                clubname: ""
+            }
+        }
+
         return new Promise((resolve, reject) => {
             if (index > size - 1) {
-                this.myLanes.push(newLane)
+                console.log('push ' + index + ' ' )
+                console.log(emptyLane)
+                this.myLanes.push(emptyLane)
                 this.setState({
                     lanes: this.myLanes
                 })
@@ -114,6 +135,7 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
     getPoolSite() {
 
         if (this.props.orientation === 'left') {
+            console.log(this.state.lanes)
             return <HeatNumbersLeft
                 lanes={this.state.lanes}
             />

@@ -6,19 +6,17 @@ import { FrontendState } from '../state/FrontendState';
 import { eventHeat } from '../types/EventHeat';
 import { HeatNumbersComponent } from '../components/HeatNumbersComponent';
 
-import { RouteComponentProps } from "react-router";
 import classnames from 'classnames';
 import { HeatFinishComponent } from '../components/HeatFinishComponent';
+import { PropsType } from '../types/PropsType';
 
-type PathParamsType = {
-    orientation: string,
-    racestate: string
-}
+var S_NUMBER_OF_LANES: string = process.env.REACT_APP_NUMBER_OF_LANES === undefined ? "8" : process.env.REACT_APP_NUMBER_OF_LANES
+var NUMBER_OF_LANES: number = parseInt(S_NUMBER_OF_LANES)
 
-// Your component own properties
-type PropsType = RouteComponentProps<PathParamsType> & {
-    someString: string,
-}
+var FIRST_LANE_ORDER: string = process.env.REACT_APP_FIRST_LANE_ORDER === undefined ? "TOP_DOWN" : process.env.REACT_APP_FIRST_LANE_ORDER
+var S_FIRST_LANE_NUMBER: string = process.env.REACT_APP_FIRST_LANE_NUMBER === undefined ? "1" : process.env.REACT_APP_FIRST_LANE_NUMBER
+var FIRST_LANE_NUMBER: number = parseInt(S_FIRST_LANE_NUMBER)
+
 export default class PoolStart extends React.Component<PropsType, FrontendState> {
 
     mylane: any[];
@@ -60,6 +58,18 @@ export default class PoolStart extends React.Component<PropsType, FrontendState>
         };
         this.mylane = [];
         this.correctValueForLaneNull = 0;
+
+        for (var i = 0; i < NUMBER_OF_LANES; i++) {
+            this.mylane.push({
+                "type": "lane",
+                "lane": i + 1,
+                "event": "1",
+                "place": undefined,
+                "finishtime": undefined,
+                "heat": "1",
+                "lap": "false"
+            });
+        }
 
     }
     async onStartStop(startdelayms: number) {
@@ -110,10 +120,12 @@ export default class PoolStart extends React.Component<PropsType, FrontendState>
 
             if (lane > sizeLanes) {
                 console.log(lane + ": new (" + this.correctValueForLaneNull + ")")
+                console.log(LaneData)
                 this.mylane.push(LaneData)
             } else {
-                this.mylane[lane - 1 + this.correctValueForLaneNull] = (LaneData)
-                console.log(lane + ": change (" + this.correctValueForLaneNull + ")")
+                    this.mylane[lane - 1 + this.correctValueForLaneNull] = (LaneData)
+                    console.log(lane + ": change (" + this.correctValueForLaneNull + ")" + lane + ' ' + LaneData.lane)
+                    //console.log(LaneData)
             }
 
             this.setState({
@@ -159,7 +171,11 @@ export default class PoolStart extends React.Component<PropsType, FrontendState>
         this.setState({
             orientation: this.orientation
         })
-        console.log('state is ' + this.racestate + ' and  orientation ' + this.orientation)
+
+        console.log('state is ' + this.racestate + ' and  orientation ' + this.orientation + ' ' + NUMBER_OF_LANES)
+        console.log('Number first lane is ' + FIRST_LANE_NUMBER)
+        console.log('Order is ' + FIRST_LANE_ORDER)
+
     }
 
     getStateComponent() {
