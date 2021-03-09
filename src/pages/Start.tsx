@@ -20,12 +20,12 @@ export default function Display() {
             <Container maxWidth="sm">
                 <Grid container spacing={5}>
                     <Grid item xs={6}>
-                        <Button variant="outlined" color="primary" href="/overlay/left">
+                        <Button variant="outlined" color="primary" href="/overlay/start/left">
                             Pool left
                     </Button>
                     </Grid>
                     <Grid item xs={6}>
-                        <Button variant="outlined" color="primary" href="/overlay/right">
+                        <Button variant="outlined" color="primary" href="/overlay/start/right">
                             Pool right
                     </Button>
                     </Grid>

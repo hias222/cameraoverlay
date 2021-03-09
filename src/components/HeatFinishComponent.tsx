@@ -84,8 +84,6 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
             if (lane.finishtime !== undefined && lane.place !== undefined) {
                 if (lane.finishtime !== 'undefined' && lane.place !== 'undefined') {
                     if (lane.place !== '0') {
-                       // console.log('finish ------------')
-                       // console.log(lane)
                         return resolve('success')
                     } else {
                         return reject('checkFinishTime')

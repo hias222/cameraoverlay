@@ -4,26 +4,28 @@ import { WsSocketState } from '../services/WsSocketState';
 import { FrontendState } from '../state/FrontendState';
 
 import { eventHeat } from '../types/EventHeat';
+import { HeatNumbersComponent } from '../components/HeatNumbersComponent';
 
-
-import {RouteComponentProps} from "react-router";
+import { RouteComponentProps } from "react-router";
 import classnames from 'classnames';
 import { HeatFinishComponent } from '../components/HeatFinishComponent';
 
 type PathParamsType = {
     orientation: string,
+    racestate: string
 }
 
 // Your component own properties
 type PropsType = RouteComponentProps<PathParamsType> & {
     someString: string,
 }
-export default class Finish extends React.Component<PropsType, FrontendState> {
+export default class PoolStart extends React.Component<PropsType, FrontendState> {
 
     mylane: any[];
     correctValueForLaneNull: number;
     evenHeat: eventHeat;
     orientation: string;
+    racestate: string;
 
     constructor(props: PropsType) {
         super(props);
@@ -34,7 +36,8 @@ export default class Finish extends React.Component<PropsType, FrontendState> {
         this.onMessageChange = this.onMessageChange.bind(this);
         this.onRunningTimeChange = this.onRunningTimeChange.bind(this);
 
-        this.orientation =  this.props.match.params.orientation;
+        this.orientation = this.props.match.params.orientation;
+        this.racestate = this.props.match.params.racestate;
 
         this.evenHeat = {
             name: "new",
@@ -52,8 +55,8 @@ export default class Finish extends React.Component<PropsType, FrontendState> {
             MessageText: "",
             MessageTime: Date.now().toString(),
             VideoVersion: "",
-            orientation:"",
-            racestate:""
+            orientation: "",
+            racestate: ""
         };
         this.mylane = [];
         this.correctValueForLaneNull = 0;
@@ -152,10 +155,35 @@ export default class Finish extends React.Component<PropsType, FrontendState> {
 
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.setState({
             orientation: this.orientation
-        })   
+        })
+        console.log('state is ' + this.racestate + ' and  orientation ' + this.orientation)
+    }
+
+    getStateComponent() {
+        if (this.racestate === 'start') {
+            return <HeatNumbersComponent
+                startdelayms={this.state.startdelayms}
+                EventHeat={this.state.eventHeat}
+                lanes={this.state.lanes}
+                displayMode={this.state.displayMode}
+                runningTime={this.state.runningTime}
+                orientation={this.state.orientation}
+            />
+        } else if (this.racestate === 'finish') {
+            return <HeatFinishComponent
+                startdelayms={this.state.startdelayms}
+                EventHeat={this.state.eventHeat}
+                lanes={this.state.lanes}
+                displayMode={this.state.displayMode}
+                runningTime={this.state.runningTime}
+                orientation={this.state.orientation}
+            />
+        } else {
+            return <div></div>
+        }
     }
 
     render() {
@@ -164,20 +192,13 @@ export default class Finish extends React.Component<PropsType, FrontendState> {
 
         return (
             <div className={base} >
-                    <WsSocketState onStartStop={this.onStartStop}
-                        onEventHeatChange={this.onEventHeatChange}
-                        onLaneChange={this.onLaneChange}
-                        onDisplayModeChange={this.onDisplayModeChange}
-                        onRunningTimeChange={this.onRunningTimeChange}
-                        onMessageChange={this.onMessageChange} />
-                    <HeatFinishComponent
-                        startdelayms={this.state.startdelayms}
-                        EventHeat={this.state.eventHeat}
-                        lanes={this.state.lanes}
-                        displayMode={this.state.displayMode}
-                        runningTime={this.state.runningTime}
-                        orientation={this.state.orientation}
-                    />
+                <WsSocketState onStartStop={this.onStartStop}
+                    onEventHeatChange={this.onEventHeatChange}
+                    onLaneChange={this.onLaneChange}
+                    onDisplayModeChange={this.onDisplayModeChange}
+                    onRunningTimeChange={this.onRunningTimeChange}
+                    onMessageChange={this.onMessageChange} />
+                {this.getStateComponent()}
             </div>
         );
     }
