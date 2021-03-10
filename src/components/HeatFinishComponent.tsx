@@ -29,13 +29,18 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
     }
 
     componentDidUpdate(prevProps: BaseFrontendInterface) {
-        if (this.props.EventHeat.heatnr !== prevProps.EventHeat.heatnr || this.props.EventHeat.eventnr !== prevProps.EventHeat.eventnr ){
+        if (this.props.EventHeat.heatnr !== prevProps.EventHeat.heatnr || this.props.EventHeat.eventnr !== prevProps.EventHeat.eventnr) {
+            // TODO: clear all
+            this.myLanes = [];
             console.log('clear finish')
+            //console.log(this.props)
+            //console.log(this.state)
             this.setState({
                 lanes: []
             })
+        } else {
+            this.checkUpdate()
         }
-        this.checkUpdate()
     }
 
     checkUpdate() {
@@ -54,26 +59,37 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
                     clubname: lane.name
                 }
             }
+
             this.checkIndexSize(index, size)
                 .then(() =>
-                    this.checkFinishTime(lane))
+                    this.checkNameChangeAfterHeatChange(lane, index))
                 .then(() =>
-                    this.addLaneData(newLane, index))
+                    this.checkFinishTime(lane))
                 .then(() => {
-                    console.log('update finish ' + lane.lane)
+                    return this.addLaneData(newLane, index)
+                })
+                .then((data) => {
+                    console.log('------------')
+                    console.log(data)
                     this.setState({
                         lanes: this.myLanes
                     })
                 })
-                .catch((error) => console.log('debug: ' + error))
+                .catch((error) => {
+                    //console.log('debug: ' + error)
+                })
+                
             return null
         })
     }
 
-    checkIndexSize( index: number, size: number): Promise<any> {
+    checkIndexSize(index: number, size: number): Promise<any> {
         //console.log('checkIndexSize')
+        // lanename - start form null?
+        // TODO: start from 0
+        var lanename = index + 1;
         var emptyLane: typelaneFinish = {
-            lane: index, lanename: index+1 + '',
+            lane: index + 1, lanename: lanename + '',
             place: "undefined",
             finishtime: "undefined",
             swimmer:
@@ -87,8 +103,8 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
 
         return new Promise((resolve, reject) => {
             if (index > size - 1) {
-                console.log('push ' + index + ' ' )
-                console.log(emptyLane)
+                console.log('push ' + index + ' ' + emptyLane.lane)
+                // console.log(emptyLane)
                 this.myLanes.push(emptyLane)
                 this.setState({
                     lanes: this.myLanes
@@ -107,14 +123,52 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
                     if (lane.place !== '0') {
                         return resolve('success')
                     } else {
-                        return reject('checkFinishTime')
+                        return reject('checkFinishTime no time lane place 0 ' + lane.lane)
                     }
                 } else {
-                    return reject('checkFinishTime')
+                    return reject('checkFinishTime no time lane string undefined ' + lane.lane)
                 }
             } else {
-                return reject('checkFinishTime')
+                return reject('checkFinishTime no time lane undefined' + lane.lane)
             }
+        })
+    }
+
+
+    checkNameChangeAfterHeatChange(lane: any, index: number): Promise<any> {
+
+        var lanenumber = parseInt(lane.lane)
+        var laneWithoutTime: typelaneFinish = {
+            lane: lanenumber, lanename: lane.lane,
+            place: 'undefined',
+            finishtime: 'undefined',
+            swimmer:
+            {
+                name: lane.lastname,
+                firstName: lane.firstname,
+                clubid: lane.code,
+                clubname: lane.name
+            }
+        }
+
+        return new Promise((resolve, reject) => {
+            //return resolve('test')
+            //console.log(newLane)
+            // TODO: only name insert
+            if (laneWithoutTime.swimmer.name !== undefined && this.myLanes[index].swimmer !== undefined) {
+                if (this.myLanes[index].swimmer.name !== laneWithoutTime.swimmer.name) {
+                    this.myLanes[index] = laneWithoutTime
+                   
+                    return resolve('success rename lane ' + laneWithoutTime.lane + ' ev ' + this.props.EventHeat.eventnr + ' ' + this.props.EventHeat.heatnr)
+                } else {
+                    return resolve('nothing to do ')
+                }
+            } else {
+                //this.myLanes[index] = emptyLane
+                return resolve('checkNameChangeAfterHeatChange')
+               //return reject('checkNameChangeAfterHeatChange')
+            }
+
         })
     }
 
@@ -122,11 +176,10 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
         return new Promise((resolve, reject) => {
             // console.log('addlane ' + this.myLanes[index].finishtime + ' ' + newLane.finishtime)
             if (this.myLanes[index].finishtime !== newLane.finishtime) {
-                console.log('update swimmer ' + newLane.lane)
                 this.myLanes[index] = newLane
-                return resolve('success')
+                return resolve('success lane ' + newLane.lane + ' ev ' + this.props.EventHeat.eventnr + ' ' + this.props.EventHeat.heatnr + ' ' + newLane.swimmer.name)
             } else {
-                return reject('addLaneData')
+                return reject('addLaneData no change in finish time ' + newLane.lane)
             }
 
         })
@@ -135,7 +188,7 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
     getPoolSite() {
 
         if (this.props.orientation === 'left') {
-            console.log(this.state.lanes)
+            //console.log(this.state.lanes)
             return <HeatNumbersLeft
                 lanes={this.state.lanes}
             />

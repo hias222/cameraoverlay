@@ -90,8 +90,10 @@ export default class PoolStart extends React.Component<PropsType, FrontendState>
     }
 
     onEventHeatChange(EventHeat: eventHeat) {
+        console.log('new Heat ' + EventHeat.heatnr)
         this.setState({
-            eventHeat: EventHeat
+            eventHeat: EventHeat,
+            lanes: [],
         });
     }
 
@@ -124,7 +126,7 @@ export default class PoolStart extends React.Component<PropsType, FrontendState>
                 this.mylane.push(LaneData)
             } else {
                     this.mylane[lane - 1 + this.correctValueForLaneNull] = (LaneData)
-                    console.log(lane + ": change (" + this.correctValueForLaneNull + ")" + lane + ' ' + LaneData.lane)
+                    //console.log(lane + ": change (" + this.correctValueForLaneNull + ")" + lane + ' ' + LaneData.lane)
                     //console.log(LaneData)
             }
 
