@@ -1,12 +1,11 @@
 import React from "react";
 import { BaseFrontendInterface } from "../interfaces/BaseFrontendInterface";
-
-import { HeatDisplayState } from "../state/HeatDisplayState";
+import { HeatFinishState } from "../state/HeatFinishState";
 import { typelaneFinish } from "../state/typelaneFinish";
-import HeatNumbersLeft from "./images/HeatNumbersLeft";
+import HeatFinishLeft from "./images/HeatFinishLeft";
 import HeatNumbersRight from "./images/HeatNumbersRight";
 
-export class HeatFinishComponent extends React.Component<BaseFrontendInterface, HeatDisplayState> {
+export class HeatFinishComponent extends React.Component<BaseFrontendInterface,HeatFinishState > {
 
     myLanes: typelaneFinish[];
 
@@ -152,9 +151,7 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
         }
 
         return new Promise((resolve, reject) => {
-            //return resolve('test')
-            //console.log(newLane)
-            // TODO: only name insert
+
             if (laneWithoutTime.swimmer.name !== undefined && this.myLanes[index].swimmer !== undefined) {
                 if (this.myLanes[index].swimmer.name !== laneWithoutTime.swimmer.name) {
                     this.myLanes[index] = laneWithoutTime
@@ -164,9 +161,7 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
                     return resolve('nothing to do ')
                 }
             } else {
-                //this.myLanes[index] = emptyLane
                 return resolve('checkNameChangeAfterHeatChange')
-               //return reject('checkNameChangeAfterHeatChange')
             }
 
         })
@@ -189,7 +184,7 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
 
         if (this.props.orientation === 'left') {
             //console.log(this.state.lanes)
-            return <HeatNumbersLeft
+            return <HeatFinishLeft
                 lanes={this.state.lanes}
             />
 
