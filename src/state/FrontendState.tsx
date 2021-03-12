@@ -13,6 +13,6 @@ export type FrontendState = {
   VideoVersion: string;
   orientation: string;
   racestate: string;
-  
+  reverseorder: boolean;
 };
 

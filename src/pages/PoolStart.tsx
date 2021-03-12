@@ -43,6 +43,8 @@ export default class PoolStart extends React.Component<PropsType, FrontendState>
             eventnr: "0"
         }
 
+        var boolorientation = FIRST_LANE_ORDER === 'TOP_DOWN' ? false : true;
+
         this.state = {
             startdelayms: 0,
             runningTime: "",
@@ -54,7 +56,8 @@ export default class PoolStart extends React.Component<PropsType, FrontendState>
             MessageTime: Date.now().toString(),
             VideoVersion: "",
             orientation: "",
-            racestate: ""
+            racestate: "",
+            reverseorder: boolorientation
         };
         this.mylane = [];
         this.correctValueForLaneNull = 0;
@@ -125,9 +128,9 @@ export default class PoolStart extends React.Component<PropsType, FrontendState>
                 console.log(LaneData)
                 this.mylane.push(LaneData)
             } else {
-                    this.mylane[lane - 1 + this.correctValueForLaneNull] = (LaneData)
-                    //console.log(lane + ": change (" + this.correctValueForLaneNull + ")" + lane + ' ' + LaneData.lane)
-                    //console.log(LaneData)
+                this.mylane[lane - 1 + this.correctValueForLaneNull] = (LaneData)
+                //console.log(lane + ": change (" + this.correctValueForLaneNull + ")" + lane + ' ' + LaneData.lane)
+                //console.log(LaneData)
             }
 
             this.setState({
@@ -189,6 +192,7 @@ export default class PoolStart extends React.Component<PropsType, FrontendState>
                 displayMode={this.state.displayMode}
                 runningTime={this.state.runningTime}
                 orientation={this.state.orientation}
+                reverseorder={this.state.reverseorder}
             />
         } else if (this.racestate === 'finish') {
             return <HeatFinishComponent
@@ -198,6 +202,7 @@ export default class PoolStart extends React.Component<PropsType, FrontendState>
                 displayMode={this.state.displayMode}
                 runningTime={this.state.runningTime}
                 orientation={this.state.orientation}
+                reverseorder={this.state.reverseorder}
             />
         } else {
             return <div></div>

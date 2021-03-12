@@ -186,6 +186,7 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface,H
             //console.log(this.state.lanes)
             return <HeatFinishLeft
                 lanes={this.state.lanes}
+                reverseorder={this.props.reverseorder}
             />
 
         }

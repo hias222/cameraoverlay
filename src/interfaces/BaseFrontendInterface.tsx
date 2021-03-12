@@ -8,4 +8,5 @@ export interface BaseFrontendInterface {
     displayMode: string;
     runningTime: string;
     orientation: string;
+    reverseorder: boolean;
 }

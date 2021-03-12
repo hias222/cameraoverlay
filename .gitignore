@@ -9,6 +9,7 @@
 .eslintcache
 
 tfjs-examples
+.vscode
 
 package-lock.json
 
