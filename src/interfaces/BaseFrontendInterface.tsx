@@ -9,4 +9,5 @@ export interface BaseFrontendInterface {
     runningTime: string;
     orientation: string;
     reverseorder: boolean;
+    mode: string;
 }

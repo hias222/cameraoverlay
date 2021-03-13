@@ -3,9 +3,10 @@ import { BaseFrontendInterface } from "../interfaces/BaseFrontendInterface";
 import { HeatFinishState } from "../state/HeatFinishState";
 import { typelaneFinish } from "../state/typelaneFinish";
 import HeatFinishLeft from "./images/HeatFinishLeft";
+import HeatNumbersLeft from "./images/HeatNumbersLeft";
 import HeatNumbersRight from "./images/HeatNumbersRight";
 
-export class HeatFinishComponent extends React.Component<BaseFrontendInterface,HeatFinishState > {
+export class HeatFinishComponent extends React.Component<BaseFrontendInterface, HeatFinishState> {
 
     myLanes: typelaneFinish[];
 
@@ -32,8 +33,6 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface,H
             // TODO: clear all
             this.myLanes = [];
             console.log('clear finish')
-            //console.log(this.props)
-            //console.log(this.state)
             this.setState({
                 lanes: []
             })
@@ -62,22 +61,21 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface,H
             this.checkIndexSize(index, size)
                 .then(() =>
                     this.checkNameChangeAfterHeatChange(lane, index))
-                .then(() =>
+                .then(() => // wenn erfolgreich start aktualisieren
                     this.checkFinishTime(lane))
                 .then(() => {
                     return this.addLaneData(newLane, index)
                 })
                 .then((data) => {
-                    console.log('------------')
-                    console.log(data)
                     this.setState({
                         lanes: this.myLanes
                     })
                 })
                 .catch((error) => {
+                    // if start always show 
                     //console.log('debug: ' + error)
                 })
-                
+
             return null
         })
     }
@@ -155,7 +153,9 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface,H
             if (laneWithoutTime.swimmer.name !== undefined && this.myLanes[index].swimmer !== undefined) {
                 if (this.myLanes[index].swimmer.name !== laneWithoutTime.swimmer.name) {
                     this.myLanes[index] = laneWithoutTime
-                   
+                    this.setState({
+                        lanes: this.myLanes
+                    })
                     return resolve('success rename lane ' + laneWithoutTime.lane + ' ev ' + this.props.EventHeat.eventnr + ' ' + this.props.EventHeat.heatnr)
                 } else {
                     return resolve('nothing to do ')
@@ -181,25 +181,41 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface,H
     }
 
     getPoolSite() {
+        console.log(this.props.mode + ' ' + this.props.orientation)
 
-        if (this.props.orientation === 'left') {
-            //console.log(this.state.lanes)
-            return <HeatFinishLeft
-                lanes={this.state.lanes}
-                reverseorder={this.props.reverseorder}
-            />
+        if (this.props.mode === 'start') {
+            if (this.props.orientation === 'left') {
+                return <HeatNumbersLeft
+                    lanes={this.state.lanes}
+                />
 
-        }
+            }
 
-        if (this.props.orientation === 'right') {
-            return <HeatNumbersRight
-                lanes={this.state.lanes}
-            />
+            if (this.props.orientation === 'right') {
+                return <HeatNumbersRight
+                    lanes={this.state.lanes}
+                />
+
+            }
+        } else if (this.props.mode === 'finish') {
+            if (this.props.orientation === 'left') {
+                return <HeatFinishLeft
+                    lanes={this.state.lanes}
+                    reverseorder={this.props.reverseorder}
+                />
+            }
+
+            if (this.props.orientation === 'right') {
+                return <HeatFinishLeft
+                    lanes={this.state.lanes}
+                    reverseorder={this.props.reverseorder}
+                />
+            }
+        } else {
 
         }
 
         return <h2>Nothing</h2>
-
     }
 
     render() {

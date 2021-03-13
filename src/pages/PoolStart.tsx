@@ -4,7 +4,6 @@ import { WsSocketState } from '../services/WsSocketState';
 import { FrontendState } from '../state/FrontendState';
 
 import { eventHeat } from '../types/EventHeat';
-import { HeatNumbersComponent } from '../components/HeatNumbersComponent';
 
 import classnames from 'classnames';
 import { HeatFinishComponent } from '../components/HeatFinishComponent';
@@ -184,17 +183,6 @@ export default class PoolStart extends React.Component<PropsType, FrontendState>
     }
 
     getStateComponent() {
-        if (this.racestate === 'start') {
-            return <HeatNumbersComponent
-                startdelayms={this.state.startdelayms}
-                EventHeat={this.state.eventHeat}
-                lanes={this.state.lanes}
-                displayMode={this.state.displayMode}
-                runningTime={this.state.runningTime}
-                orientation={this.state.orientation}
-                reverseorder={this.state.reverseorder}
-            />
-        } else if (this.racestate === 'finish') {
             return <HeatFinishComponent
                 startdelayms={this.state.startdelayms}
                 EventHeat={this.state.eventHeat}
@@ -203,10 +191,8 @@ export default class PoolStart extends React.Component<PropsType, FrontendState>
                 runningTime={this.state.runningTime}
                 orientation={this.state.orientation}
                 reverseorder={this.state.reverseorder}
+                mode={this.racestate}
             />
-        } else {
-            return <div></div>
-        }
     }
 
     render() {
