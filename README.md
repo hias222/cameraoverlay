@@ -17,3 +17,8 @@ In the project directory, you can run:
 ## Changes
 
 2020/11 update  "react-scripts": "3.4.0" to 4.0.1
+
+## release it
+
+out of root folder  
+scripts/createReleaseNumber.sh 0.1.0
