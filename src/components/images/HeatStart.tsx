@@ -1,9 +1,10 @@
 import React from 'react';
 import classnames from 'classnames';
 import { HeatFinsihInterface } from '../../interfaces/HeatFinsihInterface';
+import { laneOrientation } from '../../types/LaneOrientation';
 
 
-export default class HeatFinishLeft extends React.Component<HeatFinsihInterface, {}> {
+export default class HeatNumbersLeft extends React.Component<HeatFinsihInterface, {}> {
 
     col_height: number = 40;
     image_width: number = 300;
@@ -13,8 +14,14 @@ export default class HeatFinishLeft extends React.Component<HeatFinsihInterface,
 
     getNumberBox(lane: number, index: string, startpoint: number) {
 
+        var svg_d = "M 0 0 h 35 l 0,35 h -35 z"
 
-        var svg_d = "M 0 " + startpoint + " h 35 l 0,35 h -35 z"
+        if (this.props.orientation === laneOrientation.right) {
+            svg_d = "M " + this.image_width + " " + startpoint + " h -35 l 0,35 h 35 z"
+        } else {
+            svg_d = "M 0 " + startpoint + " h 35 l 0,35 h -35 z"
+        }
+
         return <path key={index}
             transform="scale(1)"
             d={svg_d}
@@ -24,7 +31,13 @@ export default class HeatFinishLeft extends React.Component<HeatFinsihInterface,
 
     getNameBox(lane: number, index: string, startpoint: number) {
 
-        var svg_d = "M 40 " + startpoint + " h 300 l 0,35 h -300 z"
+        var svg_d = "M 40 0 h 300 l 0,35 h -300 z"
+        if (this.props.orientation === laneOrientation.right) {
+            svg_d = "M " + (this.image_width - 40) + " " + startpoint + " h -300 l 0,35 h 300 z"
+        } else {
+            svg_d = "M 40 " + startpoint + " h 300 l 0,35 h -300 z"
+        }
+
         return <path key={index}
             transform="scale(1)"
             d={svg_d}
@@ -32,44 +45,47 @@ export default class HeatFinishLeft extends React.Component<HeatFinsihInterface,
         />
     }
 
-    getNumberBoxes() {
-        var box = <g key="layer1">
-            {
-                this.props.lanes.map((lane, index) => {
-
-                    let idname = "lane" + index
-                    var start = (lane.lane - 1) * this.col_height
+    getStartPoint(lane: number){
+        var start = (lane - 1) * this.col_height
                     if (this.props.reverseorder) {
                         let height = this.col_height * this.props.lanes.length;
                         var startpoint = height - start - this.col_height;
                     } else {
                         // eslint-disable-next-line @typescript-eslint/no-redeclare
-                        var startpoint = (lane.lane - 1) * this.col_height;
+                        var startpoint = (lane - 1) * this.col_height;
                     }
+            return startpoint
+    }
 
+    getNumberBoxes() {
 
-                    if (lane.finishtime !== 'undefined' && lane.place !== 'undefined') {
-
-                        let lastname = lane.swimmer.name !== undefined ? lane.swimmer.name : ''
-                        let firstname = lane.swimmer.firstName !== undefined ? lane.swimmer.firstName : ''
-
-                        var number = this.getNumberBox(lane.lane, "idnumberbox" + index, startpoint)
-                        var name = this.getNameBox(lane.lane, "idname" + index, startpoint)
-                        var text = this.getNameText(lane.lane, "text" + index, firstname + " " + lastname, startpoint)
-
-                        return <g key={idname}> {number} {name} {text}</g>
-                    } else {
-                        return <g key={idname}></g>
-                    }
+        var box = <g id="layerbox1">
+            {
+                this.props.lanes.map((lane, index) => {
+                    return this.getNumberBox(lane.lane, "idnumberbox" + index, this.getStartPoint(lane.lane))
                 })
             }
         </g>;
+
         return box;
     }
 
+    getNameBoxes() {
 
-    getNameText(lane: number, index: string, name: string, startpoint: number) {
+        var box = <g id="layernamebox1">
+            {
+                this.props.lanes.map((lane, index) => {
+                    return this.getNameBox(lane.lane, "idname" + index, this.getStartPoint(lane.lane))
+                })
+            }
+        </g>;
+
+        return box;
+    }
+
+    getNameTextLeft(lane: number, index: string, name: string, startpoint: number) {
         let textlanesvg = classnames('textlanesvg');
+
         var textstart = startpoint + this.col_height - 14;
 
         return <g key={'gt' + index}>
@@ -84,6 +100,46 @@ export default class HeatFinishLeft extends React.Component<HeatFinsihInterface,
             >
                 {name}</text>
         </g>
+    }
+
+    getNameTextRight(lane: number, index: string, name: string, startpoint: number) {
+        let textlanesvg = classnames('textlanesvg');
+        var textstart = startpoint + this.col_height - 14;
+
+        return <g key={'gt' + index}>
+            <text key={'t0' + index} className={textlanesvg}
+                y={textstart} x={this.image_width - 9}
+                fontSize="27"
+                text-anchor="end"
+            >
+                {lane}</text>
+            <text key={'t1' + index} className={textlanesvg}
+                y={textstart} x={this.image_width - 48}
+                fontSize="27"
+                text-anchor="end"
+            >
+                {name}</text>
+        </g>
+    }
+
+    getAllText() {
+        var box = <g id="layertext1">
+            {
+                this.props.lanes.map((lane, index) => {
+
+                    let lastname = lane.swimmer.name !== undefined ? lane.swimmer.name : ''
+                    let firstname = lane.swimmer.firstName !== undefined ? lane.swimmer.firstName : ''
+                   
+                        if (this.props.orientation === laneOrientation.right) {
+                            return this.getNameTextRight(lane.lane, "text" + index, firstname + " " + lastname, this.getStartPoint(lane.lane))
+                        } else {
+                            return this.getNameTextLeft(lane.lane, "text" + index, firstname + " " + lastname, this.getStartPoint(lane.lane))
+                        }                
+                })
+            }
+        </g>;
+
+        return box;
     }
 
     render() {
@@ -148,7 +204,12 @@ export default class HeatFinishLeft extends React.Component<HeatFinsihInterface,
                 />
 
             </defs>
+
             {this.getNumberBoxes()}
+            {this.getNameBoxes()}
+            {this.getAllText()}
+
+
         </svg>
         );
     }

@@ -16,10 +16,14 @@ export class WsSocketState extends React.Component<WsSocketPropsInterface, WsSoc
 
   constructor(props: WsSocketPropsInterface) {
     super(props);
+
+
     this.context_path = process.env.REACT_APP_BACKEND_CONTEX_PATH === undefined ? "/socket.io" : "/" + process.env.REACT_APP_BACKEND_CONTEX_PATH + "/socket.io"
-    var get_backend_port = process.env.REACT_APP_BACKEND_PORT === undefined ? "4001" : process.env.REACT_APP_BACKEND_PORT
-    var get_backend_url = process.env.REACT_APP_BACKEND_DIRECT === "true" ?  window.location.protocol + "//" + window.location.hostname + ":" + window.location.port : process.env.REACT_APP_BACKEND_URL
-    this.backend_url = get_backend_url === undefined ? "http://" + window.location.hostname + ":" + get_backend_port : get_backend_url
+    
+    var manual_url = process.env.REACT_APP_BACKEND_URL === undefined ? "http://localhost:4001" :  process.env.REACT_APP_BACKEND_URL
+    var direct_url = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port
+    this.backend_url = process.env.REACT_APP_BACKEND_DIRECT === "true" ?  direct_url : manual_url
+
     this.state = {
       WsConnected: false,
       HeatNumber: 0,

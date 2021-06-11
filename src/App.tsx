@@ -9,9 +9,7 @@ import { PropsType } from './types/PropsType';
 
 export default class App extends React.Component<PropsType, FrontendState> {
 
- 
     render() {
-
         let base = classnames('base');
 
         return (

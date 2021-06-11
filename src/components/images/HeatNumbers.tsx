@@ -2,7 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 import { HeatDisplayInterface } from '../../interfaces/HeatDisplayInterface';
 
-
 export default class HeatNumbers extends React.Component<HeatDisplayInterface, {}> {
 
     col_height: number = 40;

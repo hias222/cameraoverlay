@@ -2,9 +2,9 @@ import React from "react";
 import { BaseFrontendInterface } from "../interfaces/BaseFrontendInterface";
 import { HeatFinishState } from "../state/HeatFinishState";
 import { typelaneFinish } from "../state/typelaneFinish";
-import HeatFinishLeft from "./images/HeatFinishLeft";
-import HeatNumbersLeft from "./images/HeatNumbersLeft";
-import HeatNumbersRight from "./images/HeatNumbersRight";
+import HeatFinish from "./images/HeatFinish";
+import HeatStart from "./images/HeatStart";
+import { laneOrientation } from "../types/LaneOrientation";
 
 export class HeatFinishComponent extends React.Component<BaseFrontendInterface, HeatFinishState> {
 
@@ -185,30 +185,36 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
 
         if (this.props.mode === 'start') {
             if (this.props.orientation === 'left') {
-                return <HeatNumbersLeft
+                return <HeatStart
                     lanes={this.state.lanes}
+                    reverseorder={this.props.reverseorder}
+                    orientation={laneOrientation.left}
                 />
 
             }
 
             if (this.props.orientation === 'right') {
-                return <HeatNumbersRight
+                return <HeatStart
                     lanes={this.state.lanes}
+                    reverseorder={this.props.reverseorder}
+                    orientation={laneOrientation.right}
                 />
 
             }
         } else if (this.props.mode === 'finish') {
             if (this.props.orientation === 'left') {
-                return <HeatFinishLeft
+                return <HeatFinish
                     lanes={this.state.lanes}
                     reverseorder={this.props.reverseorder}
+                    orientation={laneOrientation.left}
                 />
             }
 
             if (this.props.orientation === 'right') {
-                return <HeatFinishLeft
+                return <HeatFinish
                     lanes={this.state.lanes}
                     reverseorder={this.props.reverseorder}
+                    orientation={laneOrientation.right}
                 />
             }
         } else {
