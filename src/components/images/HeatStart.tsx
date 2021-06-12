@@ -2,6 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { HeatFinsihInterface } from '../../interfaces/HeatFinsihInterface';
 import { laneOrientation } from '../../types/LaneOrientation';
+import { typelaneFinish } from '../../state/typelaneFinish';
 
 
 export default class HeatNumbersLeft extends React.Component<HeatFinsihInterface, {}> {
@@ -45,16 +46,16 @@ export default class HeatNumbersLeft extends React.Component<HeatFinsihInterface
         />
     }
 
-    getStartPoint(lane: number){
+    getStartPoint(lane: number) {
         var start = (lane - 1) * this.col_height
-                    if (this.props.reverseorder) {
-                        let height = this.col_height * this.props.lanes.length;
-                        var startpoint = height - start - this.col_height;
-                    } else {
-                        // eslint-disable-next-line @typescript-eslint/no-redeclare
-                        var startpoint = (lane - 1) * this.col_height;
-                    }
-            return startpoint
+        if (this.props.reverseorder) {
+            let height = this.col_height * this.props.lanes.length;
+            var startpoint = height - start - this.col_height;
+        } else {
+            // eslint-disable-next-line @typescript-eslint/no-redeclare
+            var startpoint = (lane - 1) * this.col_height;
+        }
+        return startpoint
     }
 
     getNumberBoxes() {
@@ -122,19 +123,28 @@ export default class HeatNumbersLeft extends React.Component<HeatFinsihInterface
         </g>
     }
 
+    getDisplayName(lane: typelaneFinish) {
+        let lastname = lane.swimmer.name !== undefined ? lane.swimmer.name : ''
+        let firstname = lane.swimmer.firstName !== undefined ? lane.swimmer.firstName : ''
+
+        if (this.props.orientation === laneOrientation.right) {
+            return lastname + " " + firstname
+        } else {
+            return firstname + " " + lastname
+        }
+        
+    }
+
     getAllText() {
         var box = <g id="layertext1">
             {
                 this.props.lanes.map((lane, index) => {
 
-                    let lastname = lane.swimmer.name !== undefined ? lane.swimmer.name : ''
-                    let firstname = lane.swimmer.firstName !== undefined ? lane.swimmer.firstName : ''
-                   
-                        if (this.props.orientation === laneOrientation.right) {
-                            return this.getNameTextRight(lane.lane, "text" + index, firstname + " " + lastname, this.getStartPoint(lane.lane))
-                        } else {
-                            return this.getNameTextLeft(lane.lane, "text" + index, firstname + " " + lastname, this.getStartPoint(lane.lane))
-                        }                
+                    if (this.props.orientation === laneOrientation.right) {
+                        return this.getNameTextRight(lane.lane, "text" + index, this.getDisplayName(lane), this.getStartPoint(lane.lane))
+                    } else {
+                        return this.getNameTextLeft(lane.lane, "text" + index, this.getDisplayName(lane), this.getStartPoint(lane.lane))
+                    }
                 })
             }
         </g>;
