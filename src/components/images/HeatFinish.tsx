@@ -20,7 +20,7 @@ export default class HeatFinish extends React.Component<HeatFinsihInterface, {}>
     start_name = this.col_height + 10;
     start_place = 12;
 
-    getNumberBox(lane: number, index: string, startpoint: number) {
+    getNumberBox(index: string, startpoint: number) {
 
         var svg_d = "M 0 0 h " + this.print_box_height + " l 0," + this.print_box_height + " h -" + this.print_box_height + " z"
 
@@ -37,7 +37,7 @@ export default class HeatFinish extends React.Component<HeatFinsihInterface, {}>
         />
     }
 
-    getNameBox(lane: number, index: string, startpoint: number) {
+    getNameBox(lane: string, index: string, startpoint: number) {
 
         var svg_d = "M " + this.col_height + " 0 h " + this.text_length + " l 0," + this.print_box_height + " h -" + this.text_length + " z"
         if (this.props.orientation === laneOrientation.right) {
@@ -74,13 +74,13 @@ export default class HeatFinish extends React.Component<HeatFinsihInterface, {}>
 
                     if (lane.finishtime !== 'undefined' && lane.place !== 'undefined') {
 
-                        var number = this.getNumberBox(lane.lane, "idnumberbox" + index, this.getStartPoint(lane.lane))
-                        var name = this.getNameBox(lane.lane, "idname" + index, this.getStartPoint(lane.lane))
+                        var number = this.getNumberBox("idnumberbox" + index, this.getStartPoint(lane.lane))
+                        var name = this.getNameBox(lane.place, "idname" + index, this.getStartPoint(lane.lane))
                         var text
                         if (this.props.orientation === laneOrientation.right) {
-                            text = this.getNameTextRight(lane.lane, "text" + index, this.getFinishText(lane), this.getStartPoint(lane.lane))
+                            text = this.getNameTextRight(lane.place, "text" + index, this.getFinishText(lane), this.getStartPoint(lane.lane))
                         } else {
-                            text = this.getNameTextLeft(lane.lane, "text" + index, this.getFinishText(lane), this.getStartPoint(lane.lane))
+                            text = this.getNameTextLeft(lane.place, "text" + index, this.getFinishText(lane), this.getStartPoint(lane.lane))
                         }
 
                         return <g key={idname}> {number} {name} {text}</g>
@@ -94,7 +94,7 @@ export default class HeatFinish extends React.Component<HeatFinsihInterface, {}>
     }
 
 
-    getNameTextLeft(lane: number, index: string, name: string, startpoint: number) {
+    getNameTextLeft(lane: string, index: string, name: string, startpoint: number) {
         let textlanesvg = classnames('textlanesvg');
         let textnumbersvg = classnames('textnumbersvg');
         var textstart = startpoint + this.col_height - 22;
@@ -113,7 +113,7 @@ export default class HeatFinish extends React.Component<HeatFinsihInterface, {}>
         </g>
     }
 
-    getNameTextRight(lane: number, index: string, name: string, startpoint: number) {
+    getNameTextRight(lane: string, index: string, name: string, startpoint: number) {
         let textlanesvg = classnames('textlanesvg');
         let textnumbersvg = classnames('textnumbersvg');
         var textstart = startpoint + this.col_height - 22;
