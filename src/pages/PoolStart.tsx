@@ -23,6 +23,7 @@ export default class PoolStart extends React.Component<PropsType, FrontendState>
     evenHeat: eventHeat;
     orientation: string;
     racestate: string;
+    numberLanes: number;
 
     constructor(props: PropsType) {
         super(props);
@@ -35,7 +36,8 @@ export default class PoolStart extends React.Component<PropsType, FrontendState>
 
         this.orientation = this.props.match.params.orientation;
         this.racestate = this.props.match.params.racestate;
-
+        this.numberLanes = NUMBER_OF_LANES
+   
         this.evenHeat = {
             name: "new",
             heatnr: "0",
@@ -187,6 +189,7 @@ export default class PoolStart extends React.Component<PropsType, FrontendState>
                 startdelayms={this.state.startdelayms}
                 EventHeat={this.state.eventHeat}
                 lanes={this.state.lanes}
+                numberLanes={this.numberLanes}
                 displayMode={this.state.displayMode}
                 runningTime={this.state.runningTime}
                 orientation={this.state.orientation}

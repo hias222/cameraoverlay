@@ -189,6 +189,7 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
                     lanes={this.state.lanes}
                     reverseorder={this.props.reverseorder}
                     orientation={laneOrientation.left}
+                    laneNumbers={this.props.numberLanes}
                 />
 
             }
@@ -198,6 +199,7 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
                     lanes={this.state.lanes}
                     reverseorder={this.props.reverseorder}
                     orientation={laneOrientation.right}
+                    laneNumbers={this.props.numberLanes}
                 />
 
             }
@@ -207,6 +209,7 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
                     lanes={this.state.lanes}
                     reverseorder={this.props.reverseorder}
                     orientation={laneOrientation.left}
+                    laneNumbers={this.props.numberLanes}
                 />
             }
 
@@ -215,6 +218,7 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
                     lanes={this.state.lanes}
                     reverseorder={this.props.reverseorder}
                     orientation={laneOrientation.right}
+                    laneNumbers={this.props.numberLanes}
                 />
             }
         } else {
@@ -225,7 +229,6 @@ export class HeatFinishComponent extends React.Component<BaseFrontendInterface, 
     }
 
     render() {
-
         return (
             this.getPoolSite()
         )

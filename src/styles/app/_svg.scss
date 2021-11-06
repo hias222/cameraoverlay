@@ -1,4 +1,4 @@
-$farbeschrift: white;
+$farbeschrift: black;
 
 .textlanesvg{
     font-size: 10;
@@ -6,17 +6,27 @@ $farbeschrift: white;
     font-weight: bold;
     fill: $farbeschrift;
 }
+
+.textnumbersvg{
+    font-size: 10;
+    text-align: right;
+    font-weight: bold;
+    fill: white;
+}
   
 .gradient_lane {
-    stop-color: #FF0000;
+    stop-color: rgba(198,4,36, 1);;
 }
 
 .gradient_name {
-    stop-color: rgba(28, 100, 158, 0.678);
+    //stop-color: rgba(28, 100, 158, 0.678);
+    stop-color: rgba(255, 255, 255, 0.612);
+    stop-opacity: 1;
 }
 
 .gradient_name_end {
-    stop-color: rgba(28, 100, 158, 0.678);
+    stop-color: rgba(255, 255, 255, 0.612);
+    stop-opacity: 1;
 }
 
 .gradient_place {

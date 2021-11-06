@@ -7,20 +7,21 @@ import { typelaneFinish } from '../../state/typelaneFinish';
 
 export default class HeatNumbersLeft extends React.Component<HeatFinsihInterface, {}> {
 
-    col_height: number = 40;
-    image_width: number = 300;
-
-    pixel_height: number = 720;
-    pixel_width: number = 680;
+    col_height: number = 80;
+    box_height: number = 75;
+    image_width: number = 800;
+    text_length: number = this.image_width - this.col_height ;
+    font_size: number = 64;
+    start_place = 12;
 
     getNumberBox(lane: number, index: string, startpoint: number) {
 
         var svg_d = "M 0 0 h 35 l 0,35 h -35 z"
 
         if (this.props.orientation === laneOrientation.right) {
-            svg_d = "M " + this.image_width + " " + startpoint + " h -35 l 0,35 h 35 z"
+            svg_d = "M " + this.image_width + " " + startpoint + " h -" + this.box_height + " v " + this.box_height + " h " + this.box_height + "  z"
         } else {
-            svg_d = "M 0 " + startpoint + " h 35 l 0,35 h -35 z"
+            svg_d = "M 0 " + startpoint + " h " + this.box_height + " v " + this.box_height + " h -" + this.box_height + "  z"
         }
 
         return <path key={index}
@@ -34,9 +35,9 @@ export default class HeatNumbersLeft extends React.Component<HeatFinsihInterface
 
         var svg_d = "M 40 0 h 300 l 0,35 h -300 z"
         if (this.props.orientation === laneOrientation.right) {
-            svg_d = "M " + (this.image_width - 40) + " " + startpoint + " h -300 l 0,35 h 300 z"
+            svg_d = "M " + (this.image_width - this.col_height) + " " + startpoint + " h -" + this.text_length + " l 0," + this.box_height + " h " + this.text_length + " z"
         } else {
-            svg_d = "M 40 " + startpoint + " h 300 l 0,35 h -300 z"
+            svg_d = "M " + this.col_height + " " + startpoint + " h " + this.text_length + " l 0," + this.box_height + " h -" + this.text_length + " z"
         }
 
         return <path key={index}
@@ -86,18 +87,19 @@ export default class HeatNumbersLeft extends React.Component<HeatFinsihInterface
 
     getNameTextLeft(lane: number, index: string, name: string, startpoint: number) {
         let textlanesvg = classnames('textlanesvg');
+        let textnumbersvg = classnames('textnumbersvg');
 
-        var textstart = startpoint + this.col_height - 14;
+        var textstart = startpoint + this.col_height - 22;
 
         return <g key={'gt' + index}>
-            <text key={'t0' + index} className={textlanesvg}
-                y={textstart} x="9"
-                fontSize="27"
+            <text key={'t0' + index} className={textnumbersvg}
+                y={textstart} x={this.start_place}
+                fontSize={this.font_size}
             >
                 {lane}</text>
             <text key={'t1' + index} className={textlanesvg}
-                y={textstart} x="50"
-                fontSize="27"
+                y={textstart} x={this.col_height + 12}
+                fontSize={this.font_size}
             >
                 {name}</text>
         </g>
@@ -105,18 +107,19 @@ export default class HeatNumbersLeft extends React.Component<HeatFinsihInterface
 
     getNameTextRight(lane: number, index: string, name: string, startpoint: number) {
         let textlanesvg = classnames('textlanesvg');
-        var textstart = startpoint + this.col_height - 14;
+        let textnumbersvg = classnames('textnumbersvg');
+        var textstart = startpoint + this.col_height - 22;
 
         return <g key={'gt' + index}>
-            <text key={'t0' + index} className={textlanesvg}
-                y={textstart} x={this.image_width - 9}
-                fontSize="27"
+            <text key={'t0' + index} className={textnumbersvg}
+                y={textstart} x={this.image_width - 22}
+                fontSize={this.font_size}
                 text-anchor="end"
             >
                 {lane}</text>
             <text key={'t1' + index} className={textlanesvg}
-                y={textstart} x={this.image_width - 48}
-                fontSize="27"
+                y={textstart} x={this.image_width - this.col_height - 12}
+                fontSize={this.font_size}
                 text-anchor="end"
             >
                 {name}</text>
@@ -132,7 +135,7 @@ export default class HeatNumbersLeft extends React.Component<HeatFinsihInterface
         } else {
             return firstname + " " + lastname
         }
-        
+
     }
 
     getAllText() {
@@ -156,8 +159,12 @@ export default class HeatNumbersLeft extends React.Component<HeatFinsihInterface
 
         let gradient_lane = classnames('gradient_lane');
         let gradient_name = classnames('gradient_name');
-        let height = this.col_height * this.props.lanes.length;
-        let viewBox = "0 0 " + this.image_width + " " + height;
+        let gradient_name_end = classnames('gradient_name_end');
+        //let height = this.col_height * this.props.lanes.length;
+
+        let viewBoxHeight = this.props.laneNumbers * 80;
+        let viewBox = "0 0 " + this.image_width + " " + viewBoxHeight;
+
 
         return (<svg
             xmlns="http://www.w3.org/2000/svg"
@@ -166,19 +173,17 @@ export default class HeatNumbersLeft extends React.Component<HeatFinsihInterface
             id="svg8"
             version="1.1"
             viewBox={viewBox}
-            height={this.pixel_height}
-            width={this.pixel_width}>
+            height={viewBoxHeight}
+            width={this.image_width}>
             <defs>
                 <linearGradient id="HeatNumbersGradient" gradientTransform="rotate(0)">
                     <stop
                         className={gradient_lane}
                         offset="0"
-                        stopOpacity="1"
                     />
                     <stop
                         className={gradient_lane}
                         offset="1"
-                        stopOpacity="0"
                     />
                 </linearGradient>
                 <linearGradient
@@ -194,19 +199,17 @@ export default class HeatNumbersLeft extends React.Component<HeatFinsihInterface
                 <linearGradient id="HeatNumaeGradient" gradientTransform="rotate(0)">
                     <stop
                         className={gradient_name}
-                        offset="0"
-                        stopOpacity="1"
+                        offset="1"
                     />
                     <stop
-                        className={gradient_name}
+                        className={gradient_name_end}
                         offset="1"
-                        stopOpacity="0"
                     />
                 </linearGradient>
                 <linearGradient
                     gradientUnits="userSpaceOnUse"
                     y2="0"
-                    x2="300"
+                    x2={this.image_width}
                     y1="0"
                     x1="0"
                     id="nameGradientStyle"
@@ -218,8 +221,6 @@ export default class HeatNumbersLeft extends React.Component<HeatFinsihInterface
             {this.getNumberBoxes()}
             {this.getNameBoxes()}
             {this.getAllText()}
-
-
         </svg>
         );
     }
