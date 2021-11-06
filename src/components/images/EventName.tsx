@@ -15,16 +15,17 @@ export default class EventName extends React.Component<EventNameInterface, {}> {
 
         let boxheight = 20
         let buttonheight = 3
+        let fromtop = 10
+        let fromtop2 = fromtop + boxheight
 
-        let startPoint = 100
+        let boxWidth = 150
 
-        let wholeHeight = 2 * (boxheight + buttonheight)
-        let wholeWidth = startPoint + 300
+        let wholeHeight = 2 * (boxheight + buttonheight) + 50 
 
-        let viewBox = "0 0 " + wholeWidth + " " + wholeHeight
+        let viewBox = "0 0 " + boxWidth + " " + wholeHeight
 
-        let eventNamebox = "M " + startPoint + " 0 h 300 v " + boxheight + " h -300 z"
-        let eventHeatbox = "M " + startPoint + "  " + boxheight + "  h 300 v " + boxheight + " h -300 z"
+        let eventNamebox = "M 0 " + fromtop + " h " + boxWidth + " v " + boxheight + " h -" + boxWidth + " z"
+        let eventHeatbox = "M 0 " + fromtop2 + "  h " + boxWidth + " v " + boxheight + " h -" + boxWidth + " z"
         let fontSize = 16
 
         return (<svg
@@ -35,7 +36,7 @@ export default class EventName extends React.Component<EventNameInterface, {}> {
             version="1.1"
             viewBox={viewBox}
             height={wholeHeight}
-            width={wholeWidth}
+            width={boxWidth}
         >
             <defs>
                 <linearGradient id="StartEventName" gradientTransform="rotate(0)">
@@ -67,8 +68,8 @@ export default class EventName extends React.Component<EventNameInterface, {}> {
                 />
                 <text
                     className={colorTextLaneName}
-                    y={fontSize - 1}
-                    x={startPoint + 10}
+                    y={fromtop + fontSize - 1}
+                    x={boxWidth - 20}
                     fontSize={fontSize}
                     textAnchor="right"
                 >
@@ -76,7 +77,7 @@ export default class EventName extends React.Component<EventNameInterface, {}> {
 
                 <text
                     className={colorTextLaneName}
-                    y={fontSize - 1}
+                    y={fromtop + fontSize - 1}
                     x={8}
                     fontSize={fontSize}
                     textAnchor="left"
@@ -89,15 +90,15 @@ export default class EventName extends React.Component<EventNameInterface, {}> {
                 />
                 <text
                     className={colorTextLaneName}
-                    y={fontSize - 1 + boxheight}
-                    x={startPoint + 10}
+                    y={fromtop2 + fontSize - 1}
+                    x={boxWidth - 20}
                     fontSize={fontSize}
                     textAnchor="right"
                 >
                     {this.props.HeatName}</text>
-                    <text
+                <text
                     className={colorTextLaneName}
-                    y={fontSize - 1 + boxheight}
+                    y={fromtop2 + fontSize - 1}
                     x={8}
                     fontSize={fontSize}
                     textAnchor="right"

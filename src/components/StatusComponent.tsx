@@ -3,7 +3,6 @@ import { HeatFinishState } from "../state/HeatFinishState";
 import { typelaneFinish } from "../state/typelaneFinish";
 import { StatusInterface } from "../interfaces/StatusInterface";
 import classnames from "classnames";
-import { Box } from "@material-ui/core";
 import BoxEmpty from "./images/BoxEmpty";
 import EventName from "./images/EventName";
 
@@ -57,7 +56,7 @@ export class StatusComponent extends React.Component<StatusInterface, HeatFinish
             <div className={noSpaceContainerHorizontal}>
             <BoxEmpty 
                 boxSizeHeight={100}
-                boxSizeWidth={900}/>
+                boxSizeWidth={1100}/>
             <EventName
             EventName={this.props.EventHeat.eventnr}
             HeatName={this.props.EventHeat.heatnr}
