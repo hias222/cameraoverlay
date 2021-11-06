@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Test from './Test';
+import Test from './pages/Status';
 
 import * as serviceWorker from './serviceWorker';
 
@@ -11,7 +11,7 @@ import Pool from './pages/PoolStart'
 const routing = (
     <BrowserRouter basename="/overlay">
         <Route path="/" exact component={Start} />
-        <Route path="/test" exact component={Test} />
+        <Route path="/status" exact component={Test} />
         <Route path="/:racestate/:orientation" exact component={Pool} />
     </BrowserRouter>
 )

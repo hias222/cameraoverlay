@@ -23,6 +23,14 @@
     padding:0px 0px 0px 0px;
   }
 
+  .statusclass {
+
+    width: 1280px;
+    margin:0px 0px 0px 0px;
+    padding:0px 0px 0px 0px;
+  }
+
+
   .examplebox {
     width: 1280px;
     height: 720px;
@@ -31,3 +39,8 @@
     //border: 10px solid rgba(0,0,0,1);
   }
 
+  .noSpaceContainerHorizontal{
+    font-size: 0;
+    display: flex;
+    flex-direction: row; 
+  }
